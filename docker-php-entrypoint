@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+# first arg is `-f` or `--some-option`
+if [ "$1" = "--xdebug" -o "$1" = "-xd" ] ; then
+    shift 1
+    set -- php -d zend_extension=/usr/lib/php5/20131226/xdebug.so "$@"
+elif [ "${1#-}" != "$1" ]; then
+	set -- php "$@"
+fi
+
+exec "$@"
